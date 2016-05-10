@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Battleship</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		@keyframes spinToBack {
+			100% {
+				-webkit-transform: rotateY(180deg); /* Safari */
+				transform: rotateY(180deg);
+			}
+		}
+
+		@keyframes spinToFront {
+			0% {
+				-webkit-transform: rotateY(180deg); /* Safari */
+				transform: rotateY(180deg);
+			}
+			100% {
+				-webkit-transform: rotateY(360deg); /* Safari */
+				transform: rotateY(360deg);
+			}
+		}
+
+		.spin-to-back {
+			animation: spinToBack .5s linear forwards;
+		}
+
+		.spin-to-front {
+			animation: spinToFront .5s linear forwards;
+		}
+
+		.clearfix {
+			display: table;
+			clear: both;
+			content: '';
+		}
+
+		.row {
+			margin-bottom: 10px;
+			width: 100%;
+			height: 50px;
+		}
+
+		.col {
+			height: 100%;
+			float: left;
+		}
+
+		.col-sm {
+			width: 25%;
+		}
+
+		.col-lg {
+			width: 50%;
+		}
+
+		.content-wrapper {
+			height: 600px; /* height of game board */
+			width: 100%;
+		}
+
+		.content-wrapper .col.left {
+			border-right: 2px solid;
+			border-bottom: 2px solid;
+		}
+
+		.content-wrapper .col.right {
+			border-left: 2px solid;
+			border-bottom: 2px solid;
+		}
+
+		.board {
+			width: 600px;
+			height: 600px;
+			margin: 0 auto; /* center in center column */
+		}
+
+		.tile {
+			border: 1px solid;
+			border-radius: 3px;
+			width: calc(10% - 10px);
+			height: 100%;
+			float: left;
+			cursor: pointer;
+			text-align: center;
+			position: relative;
+		}
+
+		.tile.static {
+			animation: none;
+		}
+
+		.tile.destroyed::after {
+			content: 'X';
+			position: absolute;
+			margin: 0 auto;
+		}
+
+		.tile:not(:last-child) {
+			margin-right: 10px;
+		}
+
+		.chat {
+			position: relative;
+			height: 100%;
+			padding: 0 10px 10px 10px;
+		}
+
+		.chat > form {
+			position: absolute;
+			bottom: 10px;
+			left: 0;
+			height: 30px;
+			width: 100%;
+		}
+
+		.chat > form > input,
+		.chat > form > button {
+			height: 30px;
+		}
+
+		.chat > form > input {
+			width: 70%;
+			margin-right: 10px;
+			margin-left: 10px;
+		}
+
+		.chat > form > button {
+			width: 20%;
+			border-radius: 3px;
+		}
+
+		#messages {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			height: calc(100% - 40px); /* must account for form */
+			overflow: scroll;
+			overflow-x: visible;
+			border-bottom: 1px solid;
+		}
+
+		#messages > li {
+			margin-bottom: 10px; 
+		}
+	</style>
+</head>
+<body>
+	<div id="main"></div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/bundle.js"></script>
+</body>
+</html>
