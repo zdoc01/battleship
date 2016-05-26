@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
+const typeClassMap = {
+	'1': 'destroyed',
+	'2': 'hit',
+	'3': 'miss'
+};
+
 /**
  * Individual tile in the game board that gives a visual
  * representation of the following:
@@ -15,35 +21,8 @@ import classNames from 'classnames';
  */
 const Tile = props => {
 	const { type } = props;
-
-	const getClassFromType = type => {
-		const tmp = {};
-
-		switch(type) {
-			case 1:
-				tmp.destroyed = true;
-				break;
-			case 2:
-				tmp.hit = true;
-				break;
-			case 3:
-				tmp.miss = true;
-				break;
-		}
-
-		return tmp;
-	};
-
-	const defaultClasses = {
-		'tile': true,
-		'static': true,
-		'spin-to-front': true
-	};
-
-	const classes = classNames({
-		...defaultClasses,
-		...getClassFromType(type)
-	});
+	const typeClass = typeClassMap[type] || '';
+	const classes = `tile static spin-to-front ${typeClass}`;
 
 	return (
 		<div 
@@ -59,11 +38,11 @@ const Tile = props => {
 };
 
 Tile.defaultProps = {
-	type: 0
+	type: '0'
 };
 
 Tile.propTypes = {
-	type: PropTypes.number
+	type: PropTypes.string
 };
 
 export default Tile;

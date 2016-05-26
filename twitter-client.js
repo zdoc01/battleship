@@ -66,7 +66,7 @@ TwitterClient.prototype.start = function() {
 };
 
 TwitterClient.prototype.postTweet = function(tweet) {
-	if (tweet) {
+	if (tweet && this.client) {
 		console.log('posting a tweet... - [ %s ]', tweet);
 		this.client.post('statuses/update', {status: tweet}, handleError);
 	}

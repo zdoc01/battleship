@@ -22081,7 +22081,7 @@
 	var socket = exports.socket = window.io(); // `io` = global
 
 	exports.default = function (store) {
-		console.log('initing socket.io...');
+		console.log('initializing socket.io...');
 
 		socket.on('newMessage', function (message) {
 			console.log('message received from server!', message);
@@ -22352,8 +22352,6 @@
 		value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -22363,6 +22361,12 @@
 	var _classnames2 = _interopRequireDefault(_classnames);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var typeClassMap = {
+		'1': 'destroyed',
+		'2': 'hit',
+		'3': 'miss'
+	};
 
 	/**
 	 * Individual tile in the game board that gives a visual
@@ -22379,32 +22383,8 @@
 	var Tile = function Tile(props) {
 		var type = props.type;
 
-
-		var getClassFromType = function getClassFromType(type) {
-			var tmp = {};
-
-			switch (type) {
-				case 1:
-					tmp.destroyed = true;
-					break;
-				case 2:
-					tmp.hit = true;
-					break;
-				case 3:
-					tmp.miss = true;
-					break;
-			}
-
-			return tmp;
-		};
-
-		var defaultClasses = {
-			'tile': true,
-			'static': true,
-			'spin-to-front': true
-		};
-
-		var classes = (0, _classnames2.default)(_extends({}, defaultClasses, getClassFromType(type)));
+		var typeClass = typeClassMap[type] || '';
+		var classes = 'tile static spin-to-front ' + typeClass;
 
 		return _react2.default.createElement('div', {
 			className: classes,
@@ -22417,11 +22397,11 @@
 	};
 
 	Tile.defaultProps = {
-		type: 0
+		type: '0'
 	};
 
 	Tile.propTypes = {
-		type: _react.PropTypes.number
+		type: _react.PropTypes.string
 	};
 
 	exports.default = Tile;
